@@ -1,12 +1,9 @@
-# 日志配置
-# 1.console 控制台日志格式 %d 表示时间 ，%msg 表示内容，%n 表示换行
-# 2.path  日志存放位置
-# 3.file  日志存放位置，并制定文件名称
-# 4.level 等级，可以针对类进行设置
-#logging:
-#  pattern:
-#    console: "%d - %msg%n"
-#  file: D:\word\log\sell.log
-#  level:
-#    com.xiaoming.sell.LoggerTest: debug
-#  path: D:\word\log
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://10.19.128.118/sell?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
