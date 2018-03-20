@@ -15,12 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class InfoServiceImplTest {
+public class ProductServiceImplTest {
     @Autowired
-    private InfoServiceImpl service;
+    private ProductServiceImpl service;
     @Test
     @Transactional
     public void getOne() throws Exception {

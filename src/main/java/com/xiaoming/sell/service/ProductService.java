@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 商品信息
  */
-public interface InfoService {
+public interface ProductService {
     ProductInfo getOne(String productId);
 
     /**
