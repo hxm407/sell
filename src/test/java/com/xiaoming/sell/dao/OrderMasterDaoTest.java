@@ -1,6 +1,7 @@
 package com.xiaoming.sell.dao;
 
 import com.xiaoming.sell.dataobject.OrderMaster;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,16 +10,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class OrderMasterDaoTest {
     @Autowired
     private OrderMasterDao dao;
     private final String OPENID = "110110";
+
+    @Test
+    @Transactional
+    public void getOneTest(){
+        OrderMaster result = dao.getOne("1521689864788216856");
+        log.info("【订单信息查询】 result={}",result);
+    }
 
     @Test
     public void saveTest(){

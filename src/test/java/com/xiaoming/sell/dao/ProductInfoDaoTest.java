@@ -25,7 +25,7 @@ public class ProductInfoDaoTest {
         productInfo.setProductName("披萨");
         productInfo.setProductPrice(new BigDecimal(10.2));
         productInfo.setProductStock(100);
-        productInfo.setProductDescription("美味披萨");
+        productInfo.setProductDescription("美味披萨66676");
         productInfo.setProductIcon("http://xxx.com");
         productInfo.setProductStatus(0);
         productInfo.setProductType(2);
