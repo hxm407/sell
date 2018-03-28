@@ -2,6 +2,9 @@ package com.xiaoming.sell.service.impl;
 
 import com.xiaoming.sell.dataobject.OrderDetail;
 import com.xiaoming.sell.dto.OrderDTO;
+import com.xiaoming.sell.enums.OrderStatusEnum;
+import com.xiaoming.sell.enums.PayStatusEnum;
+import com.xiaoming.sell.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,6 +28,7 @@ public class OrderServiceImplTest {
     private OrderServiceImpl orderService;
     private final String BUYER_OPENID = "110110";
     private final String ORDER_ID = "1521689864788216856";
+
 
     @Test
     public void create() throws Exception {
@@ -71,15 +75,28 @@ public class OrderServiceImplTest {
     }
 
     @Test
+    @Transactional(rollbackFor = SellException.class)
     public void cancel() throws Exception {
+        OrderDTO orderDTO = orderService.finOne(ORDER_ID);
+        OrderDTO result = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
     }
 
     @Test
+    @Transactional
     public void finish() throws Exception {
+        OrderDTO orderDTO = orderService.finOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getOrderStatus());
     }
 
     @Test
+    @Transactional
     public void paid() throws Exception {
+        OrderDTO orderDTO = orderService.finOne(ORDER_ID);
+        OrderDTO result = orderService.paid(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),result.getPayStatus());
+
     }
 
 }

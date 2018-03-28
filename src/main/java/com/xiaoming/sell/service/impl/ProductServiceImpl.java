@@ -42,24 +42,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
-        for (CartDTO cartDto : cartDTOList) {
-            ProductInfo productInfo = infoDao.getOne(cartDto.getProductId());
-            if(productInfo == null){
+        for(CartDTO cartDTO : cartDTOList){
+            ProductInfo productInfo = infoDao.getOne(cartDTO.getProductId());
+            if (productInfo == null){
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
-
-            Integer result = productInfo.getProductStock() - cartDto.getProductQuantity();
-            if(result<0){
-                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
-            }
-
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
             productInfo.setProductStock(result);
             infoDao.save(productInfo);
         }
     }
 
     @Override
-    public void decreaseStock(List<CartDTO> cartDTOList) {
+    public void decreaseStock(List<CartDTO> cartDTOList) {        for (CartDTO cartDto : cartDTOList) {
+        ProductInfo productInfo = infoDao.getOne(cartDto.getProductId());
+        if(productInfo == null){
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+
+        Integer result = productInfo.getProductStock() - cartDto.getProductQuantity();
+        if(result<0){
+            throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+        }
+
+        productInfo.setProductStock(result);
+        infoDao.save(productInfo);
+    }
 
     }
 }
