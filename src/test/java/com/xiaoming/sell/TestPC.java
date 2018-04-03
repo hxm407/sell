@@ -182,7 +182,7 @@ public class TestPC {
             infoArrayList.addAll(getZrHmlt(JG_URL + i));//价格
             infoArrayList.addAll(getZrHmlt(MJ_URL + i));//面积
         }
-        dao.saveAll(infoArrayList);
+        dao.save(infoArrayList);
         System.out.println(infoArrayList.size());
 
 
@@ -197,7 +197,7 @@ public class TestPC {
             ajkList.addAll(getAjkHmlt(AJK_MR + i + "-px7-x2/"));//价格
             ajkList.addAll(getAjkHmlt(AJK_MR + i + "-px3-x2/"));//面积
         }
-        dao.saveAll(ajkList);
+        dao.save(ajkList);
         System.out.println(ajkList.size());
     }
 }

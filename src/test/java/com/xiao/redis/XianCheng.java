@@ -1,6 +1,6 @@
 package com.xiao.redis;
 
-public class 线程 {
+public class XianCheng {
     public static void main(String args[]){
         Student student1 = new Student("lili");
         System.out.println("--------------------");

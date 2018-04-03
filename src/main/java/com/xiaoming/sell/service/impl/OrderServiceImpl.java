@@ -52,8 +52,8 @@ public class OrderServiceImpl implements OrderService {
 
         //1. 查询商品（数量、价格）
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
-            ProductInfo productInfo = productService.getOne(orderDetail.getProductId());
-            if (productInfo == null) {
+            ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
+            if (productInfo == null ) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             //2. 计算订单总价
@@ -73,8 +73,8 @@ public class OrderServiceImpl implements OrderService {
 
         //3. 写入订单数据库 （orderMaster ， orderDetail）
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
@@ -85,13 +85,13 @@ public class OrderServiceImpl implements OrderService {
         cartDTOList = orderDTO.getOrderDetailList().stream().map(e ->
                 new CartDTO(e.getProductId(), e.getProductQuantity())
         ).collect(Collectors.toList());
-        productService.increaseStock(cartDTOList);
+        productService.decreaseStock(cartDTOList);
         return orderDTO;
     }
 
     @Override
     public OrderDTO finOne(String oderId) {
-        OrderMaster orderMaster = orderMasterDao.getOne(oderId);
+        OrderMaster orderMaster = orderMasterDao.findOne(oderId);
         if (orderMaster == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }

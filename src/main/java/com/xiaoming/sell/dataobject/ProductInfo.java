@@ -1,6 +1,8 @@
 package com.xiaoming.sell.dataobject;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,7 +15,9 @@ import java.util.Date;
 @Entity
 @Data
 public class ProductInfo {
+
     @Id
+    @NotFound(action = NotFoundAction.IGNORE)
     private String productId;
     /** 商品名称 **/
     private String productName ;

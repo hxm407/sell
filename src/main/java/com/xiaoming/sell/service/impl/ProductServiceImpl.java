@@ -8,6 +8,7 @@ import com.xiaoming.sell.enums.ResultEnum;
 import com.xiaoming.sell.exception.SellException;
 import com.xiaoming.sell.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductInfoDao infoDao;
 
     @Override
-    public ProductInfo getOne(String productId) {
-        return infoDao.getOne(productId);
+    public ProductInfo findOne(String productId) {
+
+        return infoDao.findOne(productId);
     }
 
     @Override

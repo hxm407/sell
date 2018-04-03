@@ -2,6 +2,8 @@ package com.xiaoming.sell.dataobject;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +17,9 @@ import java.util.Date;
 @Data
 @DynamicUpdate
 public class OrderDetail {
+
     @Id
+    @NotFound(action = NotFoundAction.IGNORE)
     private String detailId;    //
     private String orderId;    //
     private String productId;    //
