@@ -1,7 +1,8 @@
 package com.xiaoming.sell.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.xiaoming.sell.VO.ResultVO;
-
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVOUtil {
     public static ResultVO success(Object object){
         ResultVO resultVO = new ResultVO();

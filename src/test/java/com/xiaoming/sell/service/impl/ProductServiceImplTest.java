@@ -23,7 +23,7 @@ public class ProductServiceImplTest {
     @Test
     @Transactional
     public void getOne() throws Exception {
-        ProductInfo productInfo =service.getOne("1234");
+        ProductInfo productInfo =service.findOne("1234");
         Assert.assertEquals("披萨",productInfo.getProductName());
     }
 

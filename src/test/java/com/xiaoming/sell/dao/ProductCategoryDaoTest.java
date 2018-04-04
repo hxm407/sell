@@ -23,11 +23,8 @@ public class ProductCategoryDaoTest {
 
     @Test
     public void findOne(){
-        ProductCategory category = new ProductCategory();
-        category.setCategoryId(1);
-        Example<ProductCategory> temp = Example.of(category);
-        Optional<ProductCategory> category2 =  repository.findOne(temp);
-        System.out.println(category2.get().toString());
+        ProductCategory productCategory = repository.findOne(new Integer(1));
+        System.out.println(productCategory.toString());
     }
 
     @Test
