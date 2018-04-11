@@ -8,6 +8,7 @@ import java.util.List;
  * 类目
  */
 public interface CategoryService {
+   ProductCategory findOne(Integer categoryId);
    ProductCategory getOne(Integer categoryId);
 
    List<ProductCategory> findAll();

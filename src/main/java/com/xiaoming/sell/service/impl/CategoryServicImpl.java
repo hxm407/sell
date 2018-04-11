@@ -12,13 +12,18 @@ import java.util.List;
  * 类目
  */
 @Service
-public class CategoryServicImpl implements CategoryService{
+public class CategoryServicImpl implements CategoryService {
     @Autowired
     private ProductCategoryDao repository;
 
     @Override
     public ProductCategory getOne(Integer categoryId) {
         return repository.getOne(categoryId);
+    }
+
+    @Override
+    public ProductCategory findOne(Integer categoryId) {
+        return repository.findOne(categoryId);
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.xiaoming.sell.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.xiaoming.sell.enums.ProductStatusEnum;
+import com.xiaoming.sell.utils.EnumUtil;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -14,6 +18,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@DynamicUpdate
 public class ProductInfo {
 
     @Id
@@ -32,9 +37,17 @@ public class ProductInfo {
     /** 类目编号 **/
     private Integer productType;
     /** 商品状态，0正常1下架 **/
-    private Integer productStatus;
+//    private Integer productStatus;
+
     /** 创建时间 **/
-//    private Date createTime;
+    private Date createTime;
     /** 修改时间 **/
-//    private Date updateTime;
+    private Date updateTime;
+
+    /** 状态, 0正常1下架. */
+    private Integer productStatus = ProductStatusEnum.UP.getCode();
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 }
