@@ -95,23 +95,27 @@
             </div>
             <div class="modal-footer">
                 <button onclick="javascript:document.getElementById('notice').pause()" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button onclick="location.reload()" type="button" class="btn btn-primary">查看新的订单</button>
+                <button onclick="getOrderInfo()" type="button" class="btn btn-primary">查看新的订单</button>
+                <#--<button onclick="location.reload()" type="button" class="btn btn-primary">查看新的订单</button>-->
             </div>
         </div>
     </div>
 </div>
 
-<#--播放音乐-->
+<#--播放音乐  loop 循环播放-->
 <audio id="notice" loop="loop">
     <source src="/sell/mp3/song.mp3" type="audio/mpeg" />
 </audio>
-
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/sell/js/jquery-1.12.4.js"></script>
+<script src="/sell/js/bootstrap-3.3.5.js"></script>
+<#--<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>-->
+<#--<script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
 <script>
     var websocket = null;
+    var newOrderId = null;
+    // 判断是否支持websocket
     if('WebSocket' in window) {
-        websocket = new WebSocket('ws://sell.natapp4.cc/sell/webSocket');
+        websocket = new WebSocket('ws://xiaoming.nat300.top/sell/webSocket');
     }else {
         alert('该浏览器不支持websocket!');
     }
@@ -126,6 +130,7 @@
 
     websocket.onmessage = function (event) {
         console.log('收到消息:' + event.data)
+        newOrderId = event.data;
         //弹窗提醒, 播放音乐
         $('#myModal').modal('show');
 
@@ -138,6 +143,12 @@
 
     window.onbeforeunload = function () {
         websocket.close();
+    }
+
+    function getOrderInfo(){
+        //关闭音乐
+        document.getElementById('notice').pause();
+        window.location.href='detail?orderId='+newOrderId;
     }
 
 </script>

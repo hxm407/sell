@@ -11,9 +11,11 @@ import com.xiaoming.sell.dto.OrderDTO;
 import com.xiaoming.sell.enums.OrderStatusEnum;
 import com.xiaoming.sell.enums.PayStatusEnum;
 import com.xiaoming.sell.enums.ResultEnum;
+import com.xiaoming.sell.exception.ResponseBankException;
 import com.xiaoming.sell.exception.SellException;
 import com.xiaoming.sell.service.OrderService;
 import com.xiaoming.sell.service.ProductService;
+import com.xiaoming.sell.service.WebSocket;
 import com.xiaoming.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +44,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailDao orderDetailDao;
     @Autowired
     private OrderMasterDao orderMasterDao;
+    @Autowired
+    private PushMessageServiceImpl pushMessageService;
+    @Autowired
+    private WebSocket webSocket;
 
     @Override
     @Transactional
@@ -55,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
             if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+//                throw new ResponseBankException();
             }
             //2. 计算订单总价
             orderAmount = productInfo.getProductPrice()
@@ -86,6 +93,9 @@ public class OrderServiceImpl implements OrderService {
                 new CartDTO(e.getProductId(), e.getProductQuantity())
         ).collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+
+        //发送websocket消息
+        webSocket.sendMessage(orderDTO.getOrderId());
         return orderDTO;
     }
 
@@ -174,7 +184,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //推送微信模版消息
-//        pushMessageService.orderStatus(orderDTO);
+        pushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }

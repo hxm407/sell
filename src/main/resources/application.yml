@@ -9,13 +9,27 @@ spring:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
+  redis:
+    host: 10.19.128.145
+    port: 6379
 server:
   context-path: /sell
 
 wechat:
   mpAppId: wxa8bc333b091de205
   mpAppSecret: 472dec8404f0aca4091dee3c839bb133
+  openAppId: wx6ad144e54af67d87
+  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
   mchId:
   mchKey:
-  mchPath:
+  keyPath:
+  notifyUrl:
+  templateId:
+    orderStatus: VKycdiNTzR5VcqHLZ5n65dXrHGRV3CL7-sIUHvWNv-8
+
+
+projectUrl:
+  wechatMpAuthorize: http://xiaoming.nat300.top
+  wechatOpenAuthorize: http://xiaoming.nat300.top
+  sell: http://xiaoming.nat300.top
 
